@@ -27,9 +27,9 @@ if dataset1 and dataset2:
     
     if "Machine-Specific Issues" in options:
         st.subheader("Machine-Specific Defect Trends")
-        machine_defects = df2.groupby("RESOURCENAME")["DEFECT_COUNT"].sum().reset_index()
+        machine_defects = df2.groupby("RESOURCENAME")["REJECTQTY"].sum().reset_index()
         fig, ax = plt.subplots()
-        ax.bar(machine_defects["RESOURCENAME"], machine_defects["DEFECT_COUNT"], color='blue')
+        ax.bar(machine_defects["RESOURCENAME"], machine_defects["REJECTQTY"], color='blue')
         plt.xticks(rotation=90)
         plt.xlabel("Machine")
         plt.ylabel("Defect Count")
@@ -38,12 +38,12 @@ if dataset1 and dataset2:
     
     if "Process Steps Analysis" in options:
         st.subheader("Defects by Process Steps")
-        process_defects = df2.groupby("FROMSTEP")["DEFECT_COUNT"].sum().reset_index()
+        process_defects = df2.groupby("FROMSTEP")["REJECTQTY"].sum().reset_index()
         st.bar_chart(process_defects.set_index("FROMSTEP"))
     
     if "Devices Defect Analysis" in options:
         st.subheader("Defects per Device")
-        device_defects = df2.groupby("PRODUCT")["DEFECT_COUNT"].sum().reset_index()
+        device_defects = df2.groupby("PRODUCT")["REJECTQTY"].sum().reset_index()
         st.bar_chart(device_defects.set_index("PRODUCT"))
 else:
     st.warning("Please upload both datasets to proceed.")
